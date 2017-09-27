@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Make a quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script language="javascript">
+        $(document).ready(function() {
+            var quizId = "";
+            var visibleOptions = 2;
+            var qCount = 1;
+
+            function clearQuestion() {
+                $("#questionText,#questionId,#picURL,#questionTimer,#a1,#r1,#a2,#r2,.o3,.o4,.o5,.o6,.o7,.o8").val("");
+                $(".o3,.o4,.o5,.o6,.o7,.o8").hide();
+            }
+
+            function submittedQuiz() {
+                $("#quizForm").hide();
+                $("#question").show();
+                quizId = $("#quizid").val();
+            }
+
+            function addOption() {
+                switch(visibleOptions) {
+                    case 2:
+                        visibleOptions++;
+                        $(".o3").show();
+                        break;
+                    case 3:
+                        visibleOptions++;
+                        $(".o4").show();
+                        break;
+                    case 4:
+                        visibleOptions++;
+                        $(".o5").show();
+                        break;
+                    case 5:
+                        visibleOptions++;
+                        $(".o6").show();
+                        break;
+                    case 6:
+                        visibleOptions++;
+                        $(".o7").show();
+                        break;
+                    case 7:
+                        visibleOptions++;
+                        $(".o8").show();
+                        break;
+                    case 8:
+                        alert("You can only have up to 8 options in this proof of concept");
+                        break;
+                }
+                //Make another option visible
+            }
+
+            $("#question").hide();
+            $(".o3,.o4,.o5,.o6,.o7,.o8").hide();
+
+            $("#addQuestion").click(function() {
+                var options = [];
+                for(var i = 1; i<=visibleOptions;i++) {
+                    options.push($("#a"+i).val())
+                }
+                $.ajax({
+                    url: 'rest/quizes/' + quizId +'/questions/',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        qId: $("#questionId").val(),
+                        qText: $("#questionText").val(),
+                        qTime: $("#questionTimer").val(),
+                        qOptions: options,
+                        picURL: $("#picURL").val(),
+                        qAnswer: $("input[name=rightOption]:checked").val()
+                    }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function(result) {
+                        alert("potato");
+                    }
+                });
+                qCount++;
+                $("#questionLegend").html("Question " + qCount);
+                clearQuestion();
+            });
+
+            /*$("#quizForm").submit(function(event) {
+                //event.preventDefault();
+
+            });*/
+        });
+    </script>
+</head>
+<body>
+<form action="http://localhost:8080/quiz-server/rest/quizes/" method="post" id="quizForm">
+    <fieldset>
+        <legend>Quiz</legend>
+        Quiz id:<br><input type="text" name="quizid" placeholder="Quiz id" maxlength="10"><br>
+        Quiz name:<br><input type="text" name="quizname" placeholder="Quiz name" maxlength="50"><br>
+        Quiz starttime:<br><input type="text" name="starttime" placeholder="yyyy-MM-dd-hh-mm (24 hour)"><br>
+        <input type="text" id="creator" name="creatornick" value="pota" hidden="yes">
+        <input type="submit" value="Create quiz" onclick="submittedQuiz()">
+    </fieldset>
+</form>
+
+
+<!--form action="http://localhost:8080/quiz-server/rest/quizes/" method="post" id="question"-->
+<div id="question">
+    <fieldset>
+        <legend id="questionLegend">Question 1</legend>
+        Question: <input type="text" id="questionText" name="questionText"> <br>
+        Question id: <input type="text" maxlength="10" id="questionId" name="Question id">
+        Picture URL: <input type="url" id="picURL" name="picURL"> (Optional)<br>
+        Question timer: <input type="number" id="questionTimer" name="questionTimer"> <br>
+
+        <p>Please enter the possible answers, and mark the correct one with the button next to it</p>
+        <input type="text" id="a1" name="a1" placeholder="Option one">
+        <input type="radio" id="r1" name="rightOption" value="1"> <br>
+        <input type="text" id="a2" name="a2" placeholder="Option two">
+        <input type="radio" id="r2" name="rightOption" value="2"> <br>
+        <input type="text" id="a3" class="o3" name="a3" placeholder="Option three">
+        <input type="radio" id="r3" class="o3" name="rightOption" value="3"> <br>
+        <input type="text" id="a4" class="o4" name="a4" placeholder="Option four">
+        <input type="radio" id="r4" class="o4" name="rightOption" value="4"> <br>
+        <input type="text" id="a5" class="o5" name="a5" placeholder="Option five">
+        <input type="radio" id="r5" class="o5" name="rightOption" value="5"> <br>
+        <input type="text" id="a6" class="o6" name="a6" placeholder="Option six">
+        <input type="radio" id="r6" class="o6" name="rightOption" value="6"> <br>
+        <input type="text" id="a7" class="o7" name="a7" placeholder="Option seven">
+        <input type="radio" id="r7" class="o7" name="rightOption" value="7"> <br>
+        <input type="text" id="a8" class="o8" name="a8" placeholder="Option eight">
+        <input type="radio" id="r8" class="o8" name="rightOption" value="8"> <br>
+
+        <button type="button" onclick="addOption()">Add option</button>
+        <br><button id="addQuestion" value="Add question">Add question</button>
+    </fieldset>
+</div>
+</body>
+</html>

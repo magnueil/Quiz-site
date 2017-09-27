@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script language="javascript">
+        $(document).ready(function() {
+            var interval = 5000;
+            var optionCount = 2;
+            sessionStorage.quizid = "pota";
+            var questions = $.get("/rest/quizes/" + sessionStorage.quizid + "/")
+
+            function getParameterByName(name, url) { // function gotten from https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            function updateQuestion() {
+
+            }
+            function displayDivs() {
+                for(var i = 8; i > optionCount; i--) {
+                    $("#div"+i).hide();
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+<h1 id="h1">Quiz title</h1>
+<h2 id="question">Question</h2>
+<div id="div1">
+
+</div>
+<div id="div2">
+
+</div>
+<div id="div3">
+
+</div>
+<div id="div4">
+
+</div>
+<div id="div5">
+
+</div>
+<div id="div6">
+
+</div>
+<div id="div7">
+
+</div>
+<div id="div8">
+
+</div>
+<div id="scoreboard">
+    <table id="scoretable">
+        <tr>
+            <th>User</th>
+            <th>Score</th>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

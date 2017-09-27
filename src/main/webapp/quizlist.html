@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quiz list</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script language="javascript">
+        $(document).ready(function() {
+            updateTables();
+        });
+        setInterval(updateTables(), 10000) //updates quiz tables every 10 seconds
+        function updateTables() {
+            //TODO fill this
+            var quizes = $.get("/rest/quizes/");
+            sessionStorage.quizes=quizes;
+
+        }
+    </script>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td,th {
+            border:1px solid black;
+            text-align:left;
+            padding: 2px;
+        }
+        tr:nth-child(even){
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<h1>Quiz list</h1>
+<h2>Active quizes</h2>
+<div id="activequizes">
+<table>
+    <tr>
+        <th>Quiz name</th>
+        <th>Quiz creator</th>
+        <th>Time left</th>
+    </tr>
+</table>
+</div>
+<h2>Upcoming quizes</h2>
+<div id="upcomingquizes">
+<table>
+    <tr>
+        <th>Quiz name</th>
+        <th>Quiz creator</th>
+        <th>Quiz start time</th>
+    </tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+resources\User.class
+services\UserService.class
+resources\Scoreboard.class
+services\QuizService.class
+services\AService.class
+resources\Question.class
+resources\Quiz.class

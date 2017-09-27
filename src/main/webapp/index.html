@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quiz frontpage</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.2.1.min.js"></script>
+        <script language="javascript">
+            $(document).ready(function() {
+				/*$.get("rest/thepath", function(data){
+					$("#myid").html(data);
+				});*/
+                $("form").submit(function(event) {
+                    $.ajax({
+                        url: 'rest/users/',
+                        type: 'POST',
+                        data: JSON.stringify({
+                            userId: $("#userid").val(),
+                            nickName: $("#nickname").val()
+                        }),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function(result) {
+
+                        }
+                    })
+                    sessionStorage.userId=$("#userid").val();
+                    sessionStorage.nickname=$("#nickname").val();
+                })
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="div1">
+            <h1> Welcome to Not-Kahoot!</h1>
+            <form action="quizlist.html" method="get">
+                Please choose a nickname:<br>
+                <input id="nickname" type="text" maxlength="30" name="nickname">
+                <br> user id (id fields won't be in the final release): <br>
+                <input id="userid" type="text" maxlength="10" name="userid">
+                <input type="submit" value="Submit">
+            </form>
+
+            <!--
+            <button id="bQuizList">See all quizes</button>
+            <button id="bMakeQuiz">Make a quiz</button>
+            -->
+        </div>
+    </body>
+</html>
+
