@@ -1,6 +1,5 @@
 package services;
 
-import resources.Quiz;
 import resources.User;
 
 import javax.ws.rs.*;
@@ -14,6 +13,7 @@ import java.util.Map;
 @Path("/users/")
 public class UserService {
     private static Map<String, User> users = new HashMap<String, User>();
+    private static int idCount = 0;
 
     @GET
     @Path("/{userId}/")

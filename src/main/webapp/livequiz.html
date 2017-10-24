@@ -1,73 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Live quiz</title>
     <meta charset="UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          type="text/css"
+          href="css/bootstrap.css" />
+    <link rel="stylesheet"
+          type="text/css"
+          href="livequiz.css" />
     <script src="jquery-3.2.1.min.js"></script>
-    <script language="javascript">
-        $(document).ready(function() {
-            var interval = 5000;
-            var optionCount = 2;
-            sessionStorage.quizid = "pota";
-            var questions = $.get("/rest/quizes/" + sessionStorage.quizid + "/")
-
-            function getParameterByName(name, url) { // function gotten from https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-                if (!url) url = window.location.href;
-                name = name.replace(/[\[\]]/g, "\\$&");
-                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, " "));
-            }
-
-            function updateQuestion() {
-
-            }
-            function displayDivs() {
-                for(var i = 8; i > optionCount; i--) {
-                    $("#div"+i).hide();
-                }
-            }
-        });
-    </script>
+    <script src="livequiz.js"></script>
 </head>
+
 <body>
-<h1 id="h1">Quiz title</h1>
+<div class="container-fluid body">
+    <div class="page-header title"><h1 id="quizTitle">Quiz title</h1></div>
 <h2 id="question">Question</h2>
-<div id="div1">
+<div id ="questionImage"></div>
 
+<div class="row"><div class="col-xs-6 answerOption" id="div1">
+    <button class="btn btn-primary btn-lg btn-option btn-left" id="option1"></button>
 </div>
-<div id="div2">
+<div class="col-xs-6 answerOption" id="div2">
+    <button class="btn btn-primary btn-lg btn-option" id="option2"></button>
+</div></div>
 
+<div class="row"><div class="col-xs-6 answerOption" id="div3">
+    <button class="btn btn-primary btn-lg btn-option btn-left" id="option3"></button>
 </div>
-<div id="div3">
+<div class="col-xs-6 answerOption" id="div4">
+    <button class="btn btn-primary btn-lg btn-option" id="option4"></button>
+</div></div>
 
+<div class="row"><div class="col-xs-6 answerOption" id="div5">
+    <button class="btn btn-primary btn-lg btn-option btn-left" id="option5"></button>
 </div>
-<div id="div4">
+<div class="col-xs-6 answerOption" id="div6">
+    <button class="btn btn-primary btn-lg btn-option" id="option6"></button>
+</div></div>
 
+<div class="row"><div class="col-xs-6 answerOption" id="div7">
+    <button class="btn btn-primary btn-lg btn-option btn-left" id="option7"></button>
 </div>
-<div id="div5">
+<div class="col-xs-6 answerOption" id="div8">
+    <button class="btn btn-primary btn-lg btn-option" id="option8"></button>
+</div></div>
 
-</div>
-<div id="div6">
-
-</div>
-<div id="div7">
-
-</div>
-<div id="div8">
-
-</div>
 <div id="scoreboard">
     <table id="scoretable">
         <tr>
             <th>User</th>
             <th>Score</th>
         </tr>
+        <tr>
+            <td id="user1">User 1</td>
+            <td id="score1">0 points</td>
+        </tr>
+        <!--tr>
+            <td>User 2</td>
+            <td>0 points</td>
+        </tr>
+        <tr>
+            <td>User 4</td>
+            <td>0 points</td>
+        </tr>
+        <tr>
+            <td>User 4</td>
+            <td>0 points</td>
+        </tr><-->
     </table>
 </div>
-
+<div id="timer"><p id="timerText">20</p></div>
+</div>
+<!-- The idea here was to have a modal show up, but of course that didn't work either
+<div class="modal fade" id="answerModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body"><p>Some text in the Modal...</p></div>
+        </div>
+    </div>
+</div><-->
 </body>
 </html>

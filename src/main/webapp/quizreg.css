@@ -1,0 +1,16 @@
+/* quizreg.css */
+body {
+    background-color: #9fcdff;
+}
+
+#quizdiv {
+    padding: 8px;
+}
+
+#question {
+    padding: 8px;
+}
+
+.answerOption {
+    padding: 2px;
+}

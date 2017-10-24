@@ -3,7 +3,6 @@ package services;
 import resources.Question;
 import resources.Quiz;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
@@ -29,22 +28,31 @@ public class QuizService {
         }
     }
 
-    @GET
+    /*@GET
     @Produces(MediaType.APPLICATION_JSON)
     public Object[] getQuizes() {
         return quizes.values().toArray();
-    }
+    }//*/
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Quiz[] getQuizes() {
+        if(quizes.size() > 0) {
+            Quiz[] result = new Quiz[quizes.size()];
+            Object[] help = quizes.values().toArray();
+            for(int i = 0; i < quizes.size();i++) {
+                result[i] = (Quiz) help[i];
+            }
+            return result;
+        }
+        return null;
+    }
 
     @GET
     @Path("/{quizId}/questions/")
     @Produces(MediaType.APPLICATION_JSON)
     public Object[] getQuestions(@PathParam("quizId") String quizId) {
-        if(quizes.containsKey(quizId)) {
-            return quizes.get(quizId).getQuestions().values().toArray();
-        } else {
-            throw new NotFoundException();
-        }
+        return quizes.get(quizId).getQuestions();
     }
 
     @GET
@@ -52,20 +60,17 @@ public class QuizService {
     @Produces(MediaType.APPLICATION_JSON)
     public Question getQuestion(@PathParam("quizId") String quizId,
             @PathParam("questionId") String questionId) {
-        if(quizes.containsKey(quizId)&& quizes.get(quizId).hasQuestion(questionId)) {
-            return quizes.get(quizId).getQuestion(questionId);
-        } else {
-            throw new NotFoundException();
-        }
+        return quizes.get(quizId).getQuestion(questionId);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addQuiz(Quiz q) {
+    public String addQuiz(Quiz q) {
         quizes.put(q.getQuizId(),q);
-    }
+        return q.getQuizId();
+    } //TODO check input for erroneous variables
 
-    @POST
+    /*@POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void addQuiz(@FormParam("quizid") String quizId,
                         @FormParam("quizname") String quizName,
@@ -78,7 +83,8 @@ public class QuizService {
         q.setQuizName(quizName);
         q.setStartTime(startTime);
         addQuiz(q);
-    }
+        System.out.println("The long one was used");
+    }//*/
 
     @POST
     @Path("/{quizId}/questions/")

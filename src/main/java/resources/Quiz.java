@@ -2,6 +2,7 @@ package resources;
 
 import javax.ws.rs.NotFoundException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,17 +10,13 @@ import java.util.Map;
  * Created by Magnus on 20/09/2017.
  */
 public class Quiz implements Serializable{
-    private Map<String,Question> questions = new HashMap<String,Question>();
+    private ArrayList<Question> questions = new ArrayList<Question>();
     private String quizId;
     private String quizName;
     private String startTime;
     private String creatorNick;
 
     public Quiz() {
-    }
-
-    public boolean hasQuestion(String questionId) {
-        return questions.containsKey(questionId);
     }
 
     public void setCreatorNick(String creatorNick) {
@@ -31,11 +28,12 @@ public class Quiz implements Serializable{
     }
 
     public Question getQuestion(String qId) {
-        if(questions.containsKey(qId)) {
-            return questions.get(qId);
-        } else {
-            throw new NotFoundException();
+        for(int i = 0; i < questions.size(); i++) {
+            if(questions.get(i).getqId().equals(qId)) {
+                return questions.get(i);
+            }
         }
+        return questions.get(0);
     }
 
     public String getQuizId() {
@@ -52,12 +50,12 @@ public class Quiz implements Serializable{
 
     public void addQuestion(Question q) {
         if(q!=null) {
-            questions.put(q.getqId(),q);
+            questions.add(q);
         }
     }
 
-    public Map<String, Question> getQuestions() {
-        return questions;
+    public Object[] getQuestions() {
+        return questions.toArray();
     }
 
     public void setQuizId(String quizId) {
@@ -70,5 +68,9 @@ public class Quiz implements Serializable{
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public void postQuestion(Question q) {
+        questions.add(q);
     }
 }

@@ -1,0 +1,17 @@
+/* index.css */
+body {
+    background-color: #9fcdff;
+}
+
+.center {
+    width:20vw;
+    height: 15vw;
+
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: auto;
+    width: 50%;
+}

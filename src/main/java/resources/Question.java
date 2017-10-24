@@ -11,7 +11,7 @@ public class Question implements Serializable{
     private String qText;
     private int qTime;
     private String picURL;
-    private String[] qOptions = new String[8];
+    private String[] qOptions;
     private int qAnswer;
 
     public Question() {
@@ -37,7 +37,7 @@ public class Question implements Serializable{
         return qOptions;
     }
 
-    public int getQAnswer() {
+    public int getqAnswer() {
         return qAnswer;
     }
 
@@ -65,7 +65,7 @@ public class Question implements Serializable{
         this.qOptions = qOptions;
     }
 
-    public void setQAnswer(int qAnswer) {
+    public void setqAnswer(int qAnswer) {
         this.qAnswer = qAnswer;
     }
 }
